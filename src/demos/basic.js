@@ -40,7 +40,7 @@ export function createShader(gl) {
   gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
   gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
 
-  const vPosition = gl.getAttribLocation(program, "position");
+  const vPosition = gl.getAttribLocation(program, 'position');
   gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(vPosition);
 

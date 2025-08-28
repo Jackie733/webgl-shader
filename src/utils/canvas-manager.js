@@ -6,35 +6,34 @@ class CanvasManager {
     this.currentType = null;
   }
 
-  create2DCanvas(width = 512, height = 256) {
+  create2DCanvas(width = 828, height = 512) {
     this.destroyCurrentCanvas();
 
-    const canvas = document.createElement("canvas");
+    const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-    canvas.style.border = "1px solid #ccc";
+    canvas.style.border = '1px solid #ccc';
     this.container.appendChild(canvas);
 
     this.currentCanvas = canvas;
-    this.currentContext = canvas.getContext("2d");
-    this.currentType = "2d";
+    this.currentContext = canvas.getContext('2d');
+    this.currentType = '2d';
 
     return this.currentContext;
   }
 
-  createWebGLCanvas(width = 512, height = 256) {
+  createWebGLCanvas(width = 828, height = 512) {
     this.destroyCurrentCanvas();
 
-    console.log(this.container);
-    const canvas = document.createElement("canvas");
+    const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-    canvas.style.border = "1px solid #ccc";
+    canvas.style.border = '1px solid #ccc';
     this.container.appendChild(canvas);
 
     this.currentCanvas = canvas;
-    this.currentContext = canvas.getContext("webgl");
-    this.currentType = "webgl";
+    this.currentContext = canvas.getContext('webgl');
+    this.currentType = 'webgl';
 
     return this.currentContext;
   }

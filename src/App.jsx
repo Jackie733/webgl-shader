@@ -1,9 +1,11 @@
-import { useRef } from "react";
-import { createShader } from "./utils/script";
-import { createCanvas } from "./utils/canvas";
-import { createVectorTree } from "./utils/vector-tree";
-import { useCanvasManager } from "./hooks/useCanvasManager";
-import "./App.css";
+import './App.css';
+import { useRef } from 'react';
+import { createShader } from './demos/basic';
+import { createCanvas } from './demos/canvas';
+import { createVectorTree } from './demos/vector-tree';
+import { useCanvasManager } from './hooks/useCanvasManager';
+import { createShape } from './demos/shape';
+import { createCurve } from './demos/curve';
 
 function App() {
   const containerRef = useRef(null);
@@ -11,7 +13,7 @@ function App() {
     useCanvasManager(containerRef);
 
   const render = (type, func, needCanvas) => {
-    if (type === "webgl") {
+    if (type === 'webgl') {
       const gl = switchToWebGL();
       const canvas = getCurrentCanvas();
       if (!gl) return;
@@ -20,7 +22,7 @@ function App() {
       } else {
         func(gl);
       }
-    } else if (type === "2d") {
+    } else if (type === '2d') {
       const ctx = switchTo2D();
       const canvas = getCurrentCanvas();
       if (!ctx) return;
@@ -35,9 +37,13 @@ function App() {
   return (
     <div className="container">
       <ul>
-        <li onClick={() => render("webgl", createShader)}>basic</li>
-        <li onClick={() => render("2d", createCanvas, true)}>sun rise</li>
-        <li onClick={() => render("2d", createVectorTree)}>vector tree</li>
+        <li onClick={() => render('webgl', createShader)}>basic</li>
+        <li onClick={() => render('2d', createCanvas, true)}>sun rise</li>
+        <li onClick={() => render('2d', createVectorTree, true)}>
+          vector tree
+        </li>
+        <li onClick={() => render('2d', createShape, true)}>regular shape</li>
+        <li onClick={() => render('2d', createCurve, true)}>curves</li>
       </ul>
       <div id="canvas-container" ref={containerRef}></div>
     </div>

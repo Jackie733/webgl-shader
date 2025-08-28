@@ -1,9 +1,11 @@
-import { Vector2D } from "./vector2d";
+import { Vector2D } from '../utils/vector2d';
 
-export function createVectorTree(ctx) {
-  ctx.translate(0, 256);
+export function createVectorTree(canvas) {
+  const ctx = canvas.getContext('2d');
+  const { height } = canvas;
+  ctx.translate(0, height);
   ctx.scale(1, -1);
-  ctx.lineCap = "round";
+  ctx.lineCap = 'round';
 
   const v0 = new Vector2D(256, 0);
   drawBranch(ctx, v0, 50, 10, 1, 3);
@@ -29,7 +31,7 @@ function drawBranch(context, v0, length, thinckness, dir, bias) {
 
   if (thinckness < 5 && Math.random() < 0.3) {
     context.save();
-    context.strokeStyle = "#c72c35";
+    context.strokeStyle = '#c72c35';
     const th = Math.random() * 6 + 3;
     context.lineWidth = th;
     context.beginPath();

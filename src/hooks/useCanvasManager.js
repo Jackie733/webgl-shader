@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import CanvasManager from "../utils/canvas-manager";
+import { useState, useEffect, useRef, useCallback } from 'react';
+import CanvasManager from '../utils/canvas-manager';
 
 export const useCanvasManager = (containerRef) => {
   const [canvasType, setCanvasType] = useState(null);
@@ -15,7 +15,7 @@ export const useCanvasManager = (containerRef) => {
     if (!managerRef.current) return null;
 
     const ctx = managerRef.current.create2DCanvas(width, height);
-    setCanvasType("2d");
+    setCanvasType('2d');
     return ctx;
   };
 
@@ -23,7 +23,7 @@ export const useCanvasManager = (containerRef) => {
     if (!managerRef.current) return null;
 
     const gl = managerRef.current.createWebGLCanvas(width, height);
-    setCanvasType("webgl");
+    setCanvasType('webgl');
     return gl;
   };
 
