@@ -6,6 +6,7 @@ import { createVectorTree } from './demos/vector-tree';
 import { useCanvasManager } from './hooks/useCanvasManager';
 import { createShape } from './demos/shape';
 import { createCurve } from './demos/curve';
+import { createWebGLFill } from './demos/webgl-fill';
 
 function App() {
   const containerRef = useRef(null);
@@ -44,6 +45,7 @@ function App() {
         </li>
         <li onClick={() => render('2d', createShape, true)}>regular shape</li>
         <li onClick={() => render('2d', createCurve, true)}>curves</li>
+        <li onClick={() => render('webgl', createWebGLFill)}>webgl fill</li>
       </ul>
       <div id="canvas-container" ref={containerRef}></div>
     </div>
