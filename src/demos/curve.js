@@ -1,7 +1,7 @@
-import { parametric } from '../utils/parametric';
-import { Vector2D } from '../utils/vector2d';
+import { parametric } from '@/utils/parametric';
+import { Vector2D } from '@/utils/vector2d';
 
-export function createCurve(canvas) {
+export default function (canvas) {
   const ctx = canvas.getContext('2d');
   const { width, height } = canvas;
   ctx.translate(width / 2, height / 2);
@@ -71,4 +71,6 @@ export function createCurve(canvas) {
       strokeStyle: 'purple',
     });
   }
+
+  return {};
 }

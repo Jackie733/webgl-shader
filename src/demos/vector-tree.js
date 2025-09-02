@@ -1,6 +1,6 @@
 import { Vector2D } from '../utils/vector2d';
 
-export function createVectorTree(canvas) {
+export default function (canvas) {
   const ctx = canvas.getContext('2d');
   const { height } = canvas;
   ctx.translate(0, height);
@@ -9,6 +9,8 @@ export function createVectorTree(canvas) {
 
   const v0 = new Vector2D(256, 0);
   drawBranch(ctx, v0, 50, 10, 1, 3);
+
+  return {};
 }
 
 function drawBranch(context, v0, length, thinckness, dir, bias) {

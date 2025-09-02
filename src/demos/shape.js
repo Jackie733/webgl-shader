@@ -1,6 +1,6 @@
 import { Vector2D } from '../utils/vector2d';
 
-export function createShape(canvas) {
+export default function (canvas) {
   const ctx = canvas.getContext('2d');
   const { width, height } = canvas;
   ctx.translate(0.5 * width, 0.5 * height);
@@ -11,6 +11,8 @@ export function createShape(canvas) {
 
   draw(ctx, regularShape(11, -64, -64, 30));
   draw(ctx, regularShape(60, 128, -64, 6));
+
+  return {};
 }
 
 function regularShape(edges = 3, x, y, step) {

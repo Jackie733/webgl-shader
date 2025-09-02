@@ -3,7 +3,8 @@ let position = new Float32Array([-1, -1, 0, 1, 1, -1]);
 let gl = null;
 let program = null;
 
-export function createBasicParticleAnimation(importGl) {
+// FIX: fix error
+export default function (importGl) {
   gl = importGl;
   const vertex = `
     attribute vec2 position;
@@ -76,6 +77,15 @@ export function createBasicParticleAnimation(importGl) {
   gl.enableVertexAttribArray(vPosition);
 
   requestAnimationFrame(update);
+
+  return {
+    destroy: () => {
+      gl.deleteBuffer(bufferId);
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+    },
+  };
 }
 
 function randomTriangles() {

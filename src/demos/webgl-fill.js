@@ -13,7 +13,7 @@ const vertices = [
   [-0.45, 0.0],
 ];
 
-export function createWebGLFill(gl) {
+export default function (gl) {
   const points = vertices.flat();
   const triangles = earcut(points);
 
@@ -70,4 +70,14 @@ export function createWebGLFill(gl) {
   gl.clear(gl.COLOR_BUFFER_BIT);
   // gl.drawElements(gl.TRIANGLES, cells.length, gl.UNSIGNED_SHORT, 0);
   gl.drawElements(gl.LINE_STRIP, cells.length, gl.UNSIGNED_SHORT, 0);
+
+  return {
+    destroy: () => {
+      gl.deleteBuffer(pointBuffer);
+      gl.deleteBuffer(cellsBuffer);
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+    },
+  };
 }
