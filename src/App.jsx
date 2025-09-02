@@ -6,7 +6,6 @@ import { useLocation } from '@/hooks/useLocation';
 
 function App() {
   const hash = useLocation();
-  console.log(hash);
   return <Layout>{hash === 'shader' ? <Shader /> : <Demos />}</Layout>;
 }
 

@@ -23,19 +23,19 @@ export default function Demos() {
   return (
     <div className="container">
       <ul>
-        <li onClick={() => loadScript('/basic.js', { canvasType: 'webgl' })}>
+        <li onClick={() => loadScript('basic.js', { canvasType: 'webgl' })}>
           basic
         </li>
-        <li onClick={() => loadScript('/canvas.js', { needCanvas: true })}>
+        <li onClick={() => loadScript('canvas.js', { needCanvas: true })}>
           sun rise
         </li>
-        <li onClick={() => loadScript('/vector-tree.js', { needCanvas: true })}>
+        <li onClick={() => loadScript('vector-tree.js', { needCanvas: true })}>
           vector tree
         </li>
-        <li onClick={() => loadScript('/shape.js', { needCanvas: true })}>
+        <li onClick={() => loadScript('shape.js', { needCanvas: true })}>
           regular shape
         </li>
-        <li onClick={() => loadScript('/curve', { needCanvas: true })}>
+        <li onClick={() => loadScript('curve.js', { needCanvas: true })}>
           curves
         </li>
         <li
@@ -45,7 +45,7 @@ export default function Demos() {
         </li>
         <li
           onClick={() =>
-            loadScript('/basic-particle-animation.js', { canvasType: 'webgl' })
+            loadScript('basic-particle-animation.js', { canvasType: 'webgl' })
           }
         >
           particle animation

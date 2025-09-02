@@ -2,6 +2,20 @@ class ScriptContextManager {
   constructor() {
     this.canvasManager = null;
     this.scriptInstances = new Map();
+    this.availableScripts = null;
+    this.initPromise = this.initializeAvailableScripts();
+  }
+
+  async initializeAvailableScripts() {
+    try {
+      const modules = import.meta.glob('../demos/*.js');
+      this.availableScripts = modules;
+      return modules;
+    } catch (error) {
+      console.warn('Failed to initialize available scripts:', error);
+      this.availableScripts = {};
+      return {};
+    }
   }
 
   setCanvasManager(canvasManager) {
@@ -41,6 +55,9 @@ class ScriptContextManager {
    * }
    */
   async loadScript(scriptPath, options = {}) {
+    // 等待脚本初始化完成
+    await this.initPromise;
+
     // TODO: recover from previous instance if exists
     // TODO: reload if already loaded with different options
     try {
@@ -66,7 +83,39 @@ class ScriptContextManager {
         );
       }
 
-      const module = await import(`/src/demos/${scriptPath}`);
+      let normalizedPath = scriptPath;
+
+      while (normalizedPath.startsWith('/')) {
+        normalizedPath = normalizedPath.slice(1);
+      }
+
+      if (!normalizedPath.endsWith('.js')) {
+        normalizedPath = `${normalizedPath}.js`;
+      }
+
+      const modulePath = `../demos/${normalizedPath}`;
+
+      let module;
+      try {
+        if (this.availableScripts && this.availableScripts[modulePath]) {
+          console.log('Loading from preloaded scripts:', modulePath);
+          module = await this.availableScripts[modulePath]();
+        } else {
+          const availableKeys = this.availableScripts
+            ? Object.keys(this.availableScripts)
+            : [];
+          console.error(
+            'Script not found in preloaded modules. Available scripts:',
+            availableKeys
+          );
+          throw new Error(
+            `Script "${normalizedPath}" not found. Available scripts: ${availableKeys.map((k) => k.replace('../demos/', '')).join(', ')}`
+          );
+        }
+      } catch (importError) {
+        console.error('Failed to import module:', normalizedPath, importError);
+        throw importError;
+      }
 
       let instance = null;
 
@@ -87,11 +136,13 @@ class ScriptContextManager {
           loadTime: new Date().toISOString(),
           options,
         });
-        console.log('Script module loaded:', scriptPath);
+        console.log(`Script module loaded successfully: ${normalizedPath}`);
         return instance;
       }
 
-      throw new Error('No valid export found in the script module.');
+      throw new Error(
+        `No valid export found in the script module: ${normalizedPath}`
+      );
     } catch (error) {
       console.error('Error loading script module:', error);
       throw error;

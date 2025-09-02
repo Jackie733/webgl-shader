@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// JSDoc Type Definitions for better Intellisense and documentation.
-
 /**
  * @typedef {object} WebGLAttribute
  * @property {string} name - The name of the attribute in the GLSL shader.
