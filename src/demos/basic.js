@@ -1,4 +1,4 @@
-export function createShader(gl) {
+export default function (gl) {
   const vertex = `
     attribute vec2 position;
     varying vec3 color;
@@ -44,6 +44,20 @@ export function createShader(gl) {
   gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(vPosition);
 
-  gl.clear(gl.COLOR_BUFFER_BIT);
-  gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
+  function render() {
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
+  }
+
+  render();
+
+  return {
+    render,
+    destroy: () => {
+      gl.deleteBuffer(bufferId);
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+    },
+  };
 }

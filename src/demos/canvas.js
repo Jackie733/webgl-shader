@@ -1,4 +1,4 @@
-export function createCanvas(canvas) {
+export default function (canvas) {
   const rc = window.rough.canvas(canvas);
   const ctx = rc.ctx;
   ctx.translate(256, 256);
@@ -15,4 +15,6 @@ export function createCanvas(canvas) {
     fill: 'rgba(255, 255, 0, 0.4)',
     fillStyle: 'solid',
   });
+
+  return {};
 }
